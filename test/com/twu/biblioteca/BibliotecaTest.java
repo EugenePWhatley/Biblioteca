@@ -5,11 +5,13 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -29,7 +31,7 @@ public class BibliotecaTest {
 
     @Test
     public void shouldPrintBookNameWhenBibliotecaHasOneBook(){
-        books.add(new Book("BookName"));
+        books.add(new Book("BookOne", "BookName", 1900));
         biblioteca = new Biblioteca(books, printStream);
 
         biblioteca.printListOfBooks();
@@ -45,5 +47,18 @@ public class BibliotecaTest {
 
         verify(printStream).println("");
     }
+
+    @Test
+    public void shouldPrintBookNamesWhenThereAreMultipleBooks(){
+        books.add(new Book("BookOne", "BookOne", 1900));
+        books.add(new Book("BookOne", "BookTwo", 1900));
+        biblioteca = new Biblioteca(books, printStream);
+
+        biblioteca.printListOfBooks();
+
+        verify(printStream, times(2)).println(anyString());
+    }
+
+
 
 }

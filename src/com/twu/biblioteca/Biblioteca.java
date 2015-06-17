@@ -20,10 +20,9 @@ public class Biblioteca {
     }
 
     public void printListOfBooks() {
-        if(!books.isEmpty()){
-            printStream.println("BookName");
-        } else {
-            printStream.println("");
+        for (Book book : books) {
+            printStream.println(book.getDetails());
         }
+
     }
 }
