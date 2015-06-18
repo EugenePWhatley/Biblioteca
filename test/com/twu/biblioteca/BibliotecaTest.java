@@ -22,21 +22,32 @@ public class BibliotecaTest {
     List<Book> books;
     PrintStream printStream;
     Biblioteca biblioteca;
+    private String bookOne;
+    private String bookOneAuthor;
+    private int year;
+    private String bookTwo;
+    private String bookTwoAuthor;
 
     @Before
     public void setup(){
         printStream = mock(PrintStream.class);
         books = new ArrayList<Book>();
+        bookOne = "BookOne";
+        bookOneAuthor = "AuthorOne";
+        year = 1900;
+        bookTwo = "BookTwo";
+        bookTwoAuthor = "AuthorTwo";
     }
 
     @Test
     public void shouldPrintBookNameWhenBibliotecaHasOneBook(){
-        books.add(new Book("BookOne", "BookName", 1900));
+        books.add(new Book(bookOne, bookOneAuthor, year));
         biblioteca = new Biblioteca(books, printStream);
+        String bookOneDetails = String.format("%-25s %-25s %d", bookOne, bookOneAuthor, year);
 
         biblioteca.printListOfBooks();
 
-        verify(printStream).println("BookName");
+        verify(printStream).print(bookOneDetails + "\n");
     }
 
     @Test
@@ -45,18 +56,21 @@ public class BibliotecaTest {
 
         biblioteca.printListOfBooks();
 
-        verify(printStream).println("");
+        verify(printStream).print("");
     }
 
     @Test
-    public void shouldPrintBookNamesWhenThereAreMultipleBooks(){
-        books.add(new Book("BookOne", "BookOne", 1900));
-        books.add(new Book("BookOne", "BookTwo", 1900));
+    public void shouldPrintBookNamesWhenThereAreMultipleBooks() {
+        books.add(new Book(bookOne, bookOneAuthor, year));
+        books.add(new Book(bookTwo, bookTwoAuthor, year));
         biblioteca = new Biblioteca(books, printStream);
+        String bookOneDetails = String.format("%-25s %-25s %d", bookOne, bookOneAuthor, year);
+        String bookTwoDetails = String.format("%-25s %-25s %d", bookTwo, bookTwoAuthor, year);
 
         biblioteca.printListOfBooks();
 
-        verify(printStream, times(2)).println(anyString());
+
+        verify(printStream).print(bookOneDetails + "\n" + bookTwoDetails + "\n");
     }
 
 

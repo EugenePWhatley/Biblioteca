@@ -20,9 +20,10 @@ public class Biblioteca {
     }
 
     public void printListOfBooks() {
+        String details = "";
         for (Book book : books) {
-            printStream.println(book.getDetails());
+            details +=book.getDetails() + "\n";
         }
-
+        printStream.print(details);
     }
 }
